@@ -1,8 +1,11 @@
 import { Card, Button, Form, Row, Col } from 'react-bootstrap'
+import { useContext } from 'react'
+import { CartContext } from '../cartContext'
 
 function ProductCard(props) {
   const product = props.product
-  const productQuantity = 0
+  const cart = useContext(CartContext)
+  const productQuantity = cart.getProductQuantity(product.id)
 
   return (
     <Card>
@@ -18,14 +21,14 @@ function ProductCard(props) {
               <Col sm="6">
                 <Button
                   sm="6"
-                  //   onClick={() => cart.addOneToCart(product.id)}
+                  onClick={() => cart.addOneToCart(product.id)}
                   className="mx-2"
                 >
                   +
                 </Button>
                 <Button
                   sm="6"
-                  //   onClick={() => cart.removeOneFromCart(product.id)}
+                  onClick={() => cart.removeOneFromCart(product.id)}
                   className="mx-2"
                 >
                   -
@@ -34,7 +37,7 @@ function ProductCard(props) {
             </Form>
             <Button
               variant="danger"
-              //   onClick={() => cart.deleteFromCart(product.id)}
+              onClick={() => cart.removeAllFromCart(product.id)}
               className="my-2"
             >
               Remove from cart
@@ -43,7 +46,7 @@ function ProductCard(props) {
         ) : (
           <Button
             variant="primary"
-            // onClick={() => cart.addOneToCart(product.id)}
+            onClick={() => cart.addOneToCart(product.id)}
           >
             Add To Cart
           </Button>
